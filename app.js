@@ -94,13 +94,22 @@ class Cart {
     }
 
     addToCart(array, elements){
-        const filteredArray = array.filter((element) => elements.includes(element.title));
-        this.#cart = [...this.#cart, ...filteredArray];
+        elements.forEach(title => {
+            const filteredArray = array.filter(element => element.title === title);
+            this.#cart.push(...filteredArray);
+        });
     }
 
     removeFromCart(elements){
-        const filteredArray = this.#cart.filter((element) => !elements.includes(element.title));
-        this.#cart = [...filteredArray];
+        elements.forEach(title => {
+            for (let i = this.#cart.length - 1; i >= 0; i--) {
+                if (this.#cart[i].title === title) {
+                    this.#cart.splice(i, 1);
+                    break;
+                }
+            }
+        });
+        return this.#cart;
     }
 
     getPrice(){
@@ -109,7 +118,7 @@ class Cart {
         }else{
             const price = this.#cart.reduce((acc, element) => acc + element.price, 0);
             
-            return price;
+            return price.toFixed(2);
         }
     }
 
@@ -178,9 +187,9 @@ getInfoFromGenre(instantiatedElements, 'Drama', 'movie');
 
 
 const cart = new Cart;
-cart.addToCart(instantiatedElements, ['The Dark Knight', 'Pulp Fiction']);
+cart.addToCart(instantiatedElements, ['The Dark Knight', 'Pulp Fiction', 'Pulp Fiction', 'Pulp Fiction', 'The Mandalorian', 'Pulp Fiction']);
+cart.removeFromCart(['Pulp Fiction', 'Pulp Fiction', 'The Mandalorian']);
 console.log(cart.getPrice());
-cart.removeFromCart(['The Dark Knight']);
-console.log(cart.getPrice());
+
 
 
