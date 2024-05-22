@@ -16,6 +16,13 @@ class Movie {
     toString(){
         return `${this.title} è un film del genere ${this.genre}. Rilasciato nel ${this.year} ed ha avuto un voto di ${this.rating}.`;
     }
+
+    getRating(){
+        return this.rating;
+    }
+    getGenre(){
+        return this.genre;
+    }
 }
 
 //class TvSeriex, extends Movie
@@ -48,5 +55,18 @@ const instantiation = array => {
     return instantiatedElements;
 }
 
-const newArray = instantiation(objects);
+const averageRating = (array, genre, type) => {
+    const filteredArray = array.filter((element) => element.type === type && element.genre === genre);
+    
+    const sum = filteredArray.reduce((acc, element) => acc + element.rating, 0);
+    const avarage = sum / filteredArray.length;
+
+    return avarage.toFixed(2);
+    
+}
+
+const instantiatedElements = instantiation(objects);
+
+
+
 
