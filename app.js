@@ -65,12 +65,34 @@ const averageRating = (array, genre, type) => {
     return `The average rating for the genre ${genre} is: ${avarage.toFixed(2)}`;
     
 }
+//return every genre based on the type provided (movie or tv).
+const getAllGenres = (array, type) => {
+    const allGenres = array.map((element)=> {
+       if(element.type === type){
+        return element.genre;
+       }
+    });
+
+    const noDup = new Set(allGenres);
+    noDup.delete(undefined);
+
+    const arr = [...noDup];
+
+    return arr;
+}
+
+const getInfoFromGenre = (array, genre, type) => {
+    const filteredArray = array.filter((element) => element.type === type && element.genre === genre);
+    filteredArray.forEach((element) => console.log(element.toString()));
+}
 
 //instantiate all elements using the instantiation function
 const instantiatedElements = instantiation(objects);
 
+console.log(getAllGenres(instantiatedElements, 'movie'));
 //check the average rating based on the arguments passed
 console.log(averageRating(instantiatedElements, 'Crime', 'tv'));
 console.log(averageRating(instantiatedElements, 'Drama', 'movie'));
 
 
+getInfoFromGenre(instantiatedElements, 'Drama', 'movie');
