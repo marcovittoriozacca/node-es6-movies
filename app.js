@@ -7,6 +7,7 @@ class Movie {
     #genre;
     #rating;
     #type;
+    #price = 3.99;
     //constructor to set the attributes
     constructor(title, year, genre, rating, type){
         this.#title = title;
@@ -39,6 +40,9 @@ class Movie {
 
     get type(){
         return this.#type;
+    }
+    get price(){
+        return this.#price;
     }
 
     set title(title){
@@ -103,7 +107,9 @@ class Cart {
         if(this.#cart.length === 0){
             return 0
         }else{
-            return this.#cart.length * 3.99;
+            const price = this.#cart.reduce((acc, element) => acc + element.price, 0);
+            
+            return price;
         }
     }
 
