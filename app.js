@@ -2,52 +2,93 @@ const objects = require('./objects');
 
 //class Movie
 class Movie {
-
+    #title;
+    #year;
+    #genre;
+    #rating;
+    #type;
     //constructor to set the attributes
     constructor(title, year, genre, rating, type){
-        this.title = title;
-        this.year = year;
-        this.genre = genre;
-        this.rating = rating;
-        this.type = type;
+        this.#title = title;
+        this.#year = year;
+        this.#genre = genre;
+        this.#rating = rating;
+        this.#type = type;
     }
 
     //to string method that returns a string with info
     toString(){
-        return `${this.title} è un film del genere ${this.genre}. Rilasciato nel ${this.year} ed ha avuto un voto di ${this.rating}.`;
+        return `${this.#title} è un film del genere ${this.#genre}. Rilasciato nel ${this.#year} ed ha avuto un voto di ${this.#rating}.`;
     }
 
-    getRating(){
-        return this.rating;
+    get title(){
+        return this.#title;
     }
-    getGenre(){
-        return this.genre;
+
+    get year(){
+        return this.#year;
     }
+
+    get genre(){
+        return this.#genre;
+    }
+
+    get rating(){
+        return this.#rating;
+    }
+
+    get type(){
+        return this.#type;
+    }
+
+    set title(title){
+        return this.#title = title;
+    }
+
+    set year(year){
+        return this.#year = year;
+    }
+
+    set genre(genre){
+        return this.#genre = genre;
+    }
+
+    set rating(rating){
+        return this.#rating = rating;
+    }
+
 }
 
 //class TvSeriex, extends Movie
 class TvSerie extends Movie {
-
+    #seasons;
     //costrunctor with super to invoke Movie constructor with his values
     constructor(title, year, genre, rating, type, seasons){
         super(title, year, genre, rating, type);
-        this.seasons = seasons;
+        this.#seasons = seasons;
     }
 
     toString(){
-        return `${this.title} è una serie tv del genere ${this.genre}. La prima stagione è stata rilasciata nel ${this.year} ed in totale sono state prodotte ${this.seasons} stagioni. Ha avuto un voto di ${this.rating}.`;
+        return `${this.title} è una serie tv del genere ${this.genre}. La prima stagione è stata rilasciata nel ${this.year} ed in totale sono state prodotte ${this.#seasons} stagioni. Ha avuto un voto di ${this.rating}.`;
+    }
+    get seasons(){
+        return this.#seasons;
+    }
+    set seasons(seasons){
+        return this.#seasons = seasons;
     }
 }
 
 //function that instantiate all elements in the "objects" array based on the type
 const instantiation = array => {
-    const instantiatedElements = array.map(el => {
-        const {title, year, genre, rating, type} = el;
 
+    const instantiatedElements = array.map(el => {
+        const type = el.type;
+        
         if(type === 'movie'){
-            return new Movie(title, year, genre, rating, type);
+            return new Movie(el.title, el.year, el.genre, el.rating, type);
         }else if(type === 'tv'){
-            return new TvSerie(title, year, genre, rating, type, el.seasons);
+            return new TvSerie(el.title, el.year, el.genre, el.rating, type, el.seasons);
         }else{
             throw new Error('invalid type, expected "movie" or "tv"');
         }
