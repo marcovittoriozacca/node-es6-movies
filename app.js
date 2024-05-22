@@ -94,6 +94,19 @@ class Cart {
         this.#cart = [...this.#cart, ...filteredArray];
     }
 
+    removeFromCart(elements){
+        const filteredArray = this.#cart.filter((element) => !elements.includes(element.title));
+        this.#cart = [...filteredArray];
+    }
+
+    getPrice(){
+        if(this.#cart.length === 0){
+            return 0
+        }else{
+            return this.#cart.length * 3.99;
+        }
+    }
+
 }
 
 
@@ -160,4 +173,8 @@ getInfoFromGenre(instantiatedElements, 'Drama', 'movie');
 
 const cart = new Cart;
 cart.addToCart(instantiatedElements, ['The Dark Knight', 'Pulp Fiction']);
+console.log(cart.getPrice());
+cart.removeFromCart(['The Dark Knight']);
+console.log(cart.getPrice());
+
 
