@@ -79,6 +79,25 @@ class TvSerie extends Movie {
     }
 }
 
+class Cart {
+    #cart = [];
+
+    get cart(){
+        return this.#cart;
+    }
+    set cart(elements){
+        return this.#cart = [...elements];
+    }
+
+    addToCart(array, elements){
+        const filteredArray = array.filter((element) => elements.includes(element.title));
+        this.#cart = [...this.#cart, ...filteredArray];
+    }
+
+}
+
+
+
 //function that instantiate all elements in the "objects" array based on the type
 const instantiation = array => {
 
@@ -137,3 +156,8 @@ console.log(averageRating(instantiatedElements, 'Drama', 'movie'));
 
 
 getInfoFromGenre(instantiatedElements, 'Drama', 'movie');
+
+
+const cart = new Cart;
+cart.addToCart(instantiatedElements, ['The Dark Knight', 'Pulp Fiction']);
+
