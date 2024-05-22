@@ -39,7 +39,7 @@ class TvSerie extends Movie {
     }
 }
 
-
+//function that instantiate all elements in the "objects" array based on the type
 const instantiation = array => {
     const instantiatedElements = array.map(el => {
         const {title, year, genre, rating, type} = el;
@@ -55,18 +55,22 @@ const instantiation = array => {
     return instantiatedElements;
 }
 
+//function that returns the average rating base on the genre and the type
 const averageRating = (array, genre, type) => {
     const filteredArray = array.filter((element) => element.type === type && element.genre === genre);
     
     const sum = filteredArray.reduce((acc, element) => acc + element.rating, 0);
     const avarage = sum / filteredArray.length;
 
-    return avarage.toFixed(2);
+    return `The average rating for the genre ${genre} is: ${avarage.toFixed(2)}`;
     
 }
 
+//instantiate all elements using the instantiation function
 const instantiatedElements = instantiation(objects);
 
-
+//check the average rating based on the arguments passed
+console.log(averageRating(instantiatedElements, 'Crime', 'tv'));
+console.log(averageRating(instantiatedElements, 'Drama', 'movie'));
 
 
